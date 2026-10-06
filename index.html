@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FriendFix AI — Fix the Conversation • Keep the Friendship</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <!-- Ambient Glow Background -->
+    <div class="background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🤝</span>
+            <span>FriendFix <b>AI</b></span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#analyzer" class="nav-link">Analyzer</a>
+            <a href="#features" class="nav-link">Why FriendFix</a>
+            <button class="nav-ghost-btn" onclick="toggleHistoryModal()">
+                📜 History (<span id="historyBadge">0</span>)
+            </button>
+        </div>
+
+        <div class="nav-badge">
+            <span class="badge-dot"></span>
+            ✨ Hacktoberfest 2026 • Open Source AI
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="status">
+                    <span class="status-dot"></span>
+                    AI Friendship Assistant & Conflict De-escalator
+                </div>
+
+                <h1>
+                    Fix the conversation.
+                    <span>Keep the friendship.</span>
+                </h1>
+
+                <p>
+                    Tone gets lost over text. FriendFix AI helps you decode difficult messages,
+                    understand emotional subtext, and craft thoughtful, empathetic responses
+                    before small misunderstandings ruin genuine friendships.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="primary-btn" onclick="scrollToAnalyzer()">
+                        ✨ Try FriendFix Free
+                    </button>
+                    <button class="secondary-btn" onclick="loadPreset('uninvited')">
+                        🎯 Try Demo Scenario
+                    </button>
+                </div>
+
+                <div class="trust-row">
+                    <span>🔒 100% Private (Client-Side)</span>
+                    <span>🤖 Open-Source AI Powered</span>
+                    <span>💚 Friendship-First</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="chat-card">
+                    <div class="chat-header">
+                        <div class="avatar">👨🏻</div>
+                        <div>
+                            <strong>Sam (Best Friend)</strong>
+                            <small>Active 5m ago</small>
+                        </div>
+                        <span class="online-dot"></span>
+                    </div>
+
+                    <div class="message received">
+                        Bro, you didn't even invite me to the hangout.
+                        I thought we were close friends...
+                    </div>
+
+                    <div class="message sent">
+                        I'm so sorry, it really wasn't intentional 😭
+                    </div>
+
+                    <div class="ai-analysis">
+                        <div class="ai-icon">🧠</div>
+                        <div>
+                            <strong>FriendFix AI Diagnosis</strong>
+                            <p>
+                                Underlying Emotion: <b>Hurt + Feeling Excluded (78%)</b><br>
+                                Unspoken Need: <i>Reassurance that they still matter to you.</i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analyzer Section -->
+        <section class="analyzer-section" id="analyzer">
+            <div class="section-heading">
+                <div class="mini-label">🧠 AI CONVERSATION ANALYZER</div>
+                <h2>What's really going on?</h2>
+                <p>
+                    Paste a tense text, voice-note transcript, or awkward chat message.
+                    FriendFix decodes the emotional temperature and what your friend might really mean.
+                </p>
+
+                <!-- Interactive Scenario Preset Chips -->
+                <div class="preset-container">
+                    <span class="preset-label">Quick Scenarios:</span>
+                    <button type="button" class="preset-chip active" onclick="loadPreset('uninvited')">🍕 Uninvited</button>
+                    <button type="button" class="preset-chip" onclick="loadPreset('ghosted')">👻 Left on Read</button>
+                    <button type="button" class="preset-chip" onclick="loadPreset('flaked')">🚗 Flaked Plans</button>
+                    <button type="button" class="preset-chip" onclick="loadPreset('splitbill')">💸 Split-Bill Awkward</button>
+                    <button type="button" class="preset-chip" onclick="loadPreset('passive')">⚡ Passive-Aggressive</button>
+                </div>
+            </div>
+
+            <div class="analyzer-grid">
+                <!-- Input Card -->
+                <div class="input-card">
+                    <div class="card-header-row">
+                        <div class="card-title">
+                            <span>💬</span>
+                            Incoming Message or Chat
+                        </div>
+                        <button class="clear-btn" onclick="clearConversation()" title="Clear text">Clear</button>
+                    </div>
+
+                    <!-- Personalization options -->
+                    <div class="meta-inputs">
+                        <div class="input-group">
+                            <label for="friendName">Friend's Name / Nickname</label>
+                            <input type="text" id="friendName" placeholder="e.g. Alex, Sam, Bro" value="Bro">
+                        </div>
+                        <div class="input-group">
+                            <label for="relationshipType">Relationship</label>
+                            <select id="relationshipType">
+                                <option value="close">Close Friend / Bestie</option>
+                                <option value="casual">Casual Friend / Group Chat</option>
+                                <option value="roommate">Roommate / Housemate</option>
+                                <option value="coworker">Work Buddy / Colleague</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <textarea
+                        id="conversation"
+                        placeholder="Paste your conversation here...
+Example:
+'Bro, you didn't even invite me to your hangout. I thought we were friends. You always make plans without me lately.'"
+                    ></textarea>
+
+                    <div class="input-footer">
+                        <div class="footer-left">
+                            <span id="charCount">0 characters</span>
+                            <span class="shortcut-tip">💡 <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to analyze</span>
+                        </div>
+
+                        <button
+                            class="analyze-btn"
+                            id="analyzeBtn"
+                            onclick="analyzeConversation()"
+                        >
+                            <span id="buttonText">✨ Analyze Conversation</span>
+                        </button>
+                    </div>
+
+                    <!-- Open Source AI Backend Config Accordion -->
+                    <details class="ai-config-drawer">
+                        <summary>⚙️ AI Engine Settings (Open-Source / Ollama / Local)</summary>
+                        <div class="config-content">
+                            <div class="config-row">
+                                <label for="aiProvider">AI Provider:</label>
+                                <select id="aiProvider" onchange="handleProviderChange()">
+                                    <option value="offline">⚡ Offline Smart Heuristics (Instant, 100% Private)</option>
+                                    <option value="ollama">🦙 Ollama Local Server (http://localhost:11434)</option>
+                                    <option value="huggingface">🤗 Hugging Face Open-Weights API</option>
+                                </select>
+                            </div>
+                            <div class="config-row" id="modelRow" style="display: none;">
+                                <label for="modelName">Model:</label>
+                                <input type="text" id="modelName" value="llama3.2:latest" placeholder="e.g. llama3.2, qwen2.5, mistral">
+                            </div>
+                            <div class="config-row" id="apiKeyRow" style="display: none;">
+                                <label for="hfApiKey">HF API Token (optional):</label>
+                                <input type="password" id="hfApiKey" placeholder="hf_xxxxxxxxxxxxxxxx">
+                            </div>
+                            <small class="config-note">
+                                When using offline mode, sentiment and responses are generated locally with zero network requests.
+                            </small>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Result Card -->
+                <div class="result-card">
+                    <div class="card-title">
+                        <span>🔎</span>
+                        AI Empathy Breakdown
+                        <span class="result-status" id="resultStatus">Waiting for input</span>
+                    </div>
+
+                    <div id="emptyResult" class="empty-result">
+                        <div class="empty-icon">🧠</div>
+                        <h3>Your emotional diagnosis will appear here</h3>
+                        <p>
+                            Paste a conversation on the left, pick a scenario, or click
+                            <strong>"Analyze Conversation"</strong>.
+                        </p>
+                    </div>
+
+                    <div id="analysisResult" class="analysis-result hidden">
+                        <!-- Emotion Block -->
+                        <div class="analysis-block">
+                            <div class="block-heading">
+                                <span>❤️</span> Detected Core Emotion
+                            </div>
+                            <div class="emotion-row">
+                                <div>
+                                    <strong id="emotion">Hurt & Left Out</strong>
+                                    <p id="emotionDescription">They are expressing feelings of exclusion and vulnerability.</p>
+                                </div>
+                                <div class="emotion-emoji" id="emotionEmoji">😔</div>
+                            </div>
+
+                            <!-- Emotion nuances pills -->
+                            <div class="sub-emotions" id="subEmotions">
+                                <span class="tag">Exclusion: High</span>
+                                <span class="tag">Fear of drifting: Moderate</span>
+                                <span class="tag">Hostility: Low</span>
+                            </div>
+                        </div>
+
+                        <!-- Intent Block -->
+                        <div class="analysis-block">
+                            <div class="block-heading">
+                                <span>🔍</span> Unspoken Need & Real Intent
+                            </div>
+                            <p id="intent">They want reassurance that your bond is still valued and intact.</p>
+                        </div>
+
+                        <!-- Friendship Temperature -->
+                        <div class="analysis-block">
+                            <div class="block-heading">
+                                <span>🌡️</span> Friendship Temperature & De-escalation Urgency
+                            </div>
+                            <div class="temperature">
+                                <div class="temperature-bar">
+                                    <div id="temperatureFill"></div>
+                                </div>
+                                <strong id="temperatureValue">72%</strong>
+                            </div>
+                            <small id="temperatureText">Recoverable — an empathetic, low-ego response will resolve this quickly.</small>
+                        </div>
+
+                        <!-- Meaning Box -->
+                        <div class="meaning-box">
+                            <div class="meaning-icon">💡</div>
+                            <div>
+                                <strong>What they might really mean (Under the surface):</strong>
+                                <p id="realMeaning">"Our friendship matters deeply to me, and I felt forgotten when I wasn't included."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Response Generator Section -->
+        <section class="response-section hidden" id="responseSection">
+            <div class="section-heading">
+                <div class="mini-label">💬 RESPONSE GENERATOR</div>
+                <h2>Say the right thing. Keep the friend.</h2>
+                <p>
+                    Pick a tone that fits your friendship dynamic. FriendFix drafts an empathetic,
+                    thoughtful response that de-escalates tension without compromising honesty.
+                </p>
+            </div>
+
+            <div class="response-container">
+                <!-- Response Customization Bar -->
+                <div class="response-controls">
+                    <div class="style-buttons">
+                        <button class="style-btn active" onclick="changeStyle('friendly', this)">
+                            😊 Friendly & Warm
+                        </button>
+                        <button class="style-btn" onclick="changeStyle('funny', this)">
+                            😂 Lighthearted & Banter
+                        </button>
+                        <button class="style-btn" onclick="changeStyle('apologetic', this)">
+                            🙏 Sincere Apology
+                        </button>
+                        <button class="style-btn" onclick="changeStyle('direct', this)">
+                            🎯 Honest & Direct
+                        </button>
+                        <button class="style-btn" onclick="changeStyle('gentle', this)">
+                            ☕ Calm De-escalator
+                        </button>
+                    </div>
+
+                    <div class="length-pills">
+                        <span class="length-label">Length:</span>
+                        <button class="length-pill" onclick="changeLength('short', this)">⚡ Short</button>
+                        <button class="length-pill active" onclick="changeLength('medium', this)">💬 Balanced</button>
+                        <button class="length-pill" onclick="changeLength('long', this)">📜 Heart-to-Heart</button>
+                    </div>
+                </div>
+
+                <!-- Generated Response Box -->
+                <div class="response-box">
+                    <div class="response-top">
+                        <span class="suggested-tag">
+                            ✨ Suggested De-escalating Message
+                        </span>
+                        <div class="action-btn-group">
+                            <button onclick="regenerateVariation()" class="action-btn" title="Generate another variation">
+                                🔄 Rephrase
+                            </button>
+                            <button onclick="copyResponse()" id="copyButton" class="action-btn">
+                                📋 Copy Message
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="generatedResponse">
+                        Hey Alex, I'm genuinely so sorry. It was totally unintentional and I hate that I made you feel excluded. You mean a lot to me, and I value our friendship too much to let something like this cause a rift. Let's hang out this week, my treat ❤️
+                    </p>
+                </div>
+
+                <!-- Truce Offering / Peace Voucher -->
+                <div class="voucher-card" id="voucherCard">
+                    <div class="voucher-header">
+                        <div class="voucher-stamp">🤝 FRIENDSHIP TRUCE PASS</div>
+                        <span class="voucher-id" id="voucherCode">PASS #FF-2026</span>
+                    </div>
+                    <div class="voucher-body">
+                        <div class="voucher-icon" id="voucherIcon">🍕</div>
+                        <div class="voucher-details">
+                            <strong id="voucherTitle">1x Free Slice of Pizza & No-Drama Catchup</strong>
+                            <p id="voucherDesc">Valid anytime. Guaranteed zero defensiveness, good laughs, and genuine conversation.</p>
+                        </div>
+                    </div>
+                    <div class="voucher-footer">
+                        <button class="voucher-copy-btn" onclick="copyFullCarePackage()">
+                            🎁 Copy Full Care Package (Text + Voucher for Discord / WhatsApp)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Avoid Box -->
+                <div class="avoid-box">
+                    <span>🚫</span>
+                    <div>
+                        <strong>What to Avoid Saying Right Now:</strong>
+                        <p id="avoidText">
+                            Don't reply with "You're overreacting" or list logistical excuses right away.
+                            Validating their hurt feelings first prevents them from shutting down.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="section-heading">
+                <div class="mini-label">WHY FRIENDFIX AI?</div>
+                <h2>Built for real human connections.</h2>
+                <p>Designed with empathy, psychological communication frameworks, and open-source AI.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h3>Subtext Detection</h3>
+                    <p>Detects when friends are masking vulnerability behind anger, silence, or sarcastic jokes.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Temperature Index</h3>
+                    <p>Visualizes escalation risk in real-time so you know whether to respond immediately or give it space.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Multi-Tone Generator</h3>
+                    <p>Adapts to how you and your friend actually speak—from goofy banter to deep emotional accountability.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Privacy-First</h3>
+                    <p>Runs entirely client-side or on your local Ollama node. No message logs sent to third-party ad networks.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- History Drawer / Modal -->
+    <div class="modal-overlay hidden" id="historyModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>📜 Conversation History</h3>
+                <button class="close-modal-btn" onclick="toggleHistoryModal()">✕</button>
+            </div>
+            <div class="modal-body" id="historyList">
+                <p class="empty-history">No conversations analyzed yet.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="clear-history-btn" onclick="clearHistory()">Clear History</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Message copied to clipboard!</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            🤝 FriendFix AI
+        </div>
+        <p>
+            Built with ❤️ for Hacktoberfest 2026: <i>"Build for a Friend"</i>.
+        </p>
+        <span>
+            Open Source • Safe Communication • Zero Data Harvesting
+        </span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
